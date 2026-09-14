@@ -1,0 +1,18 @@
+{
+  "name": "agi-enterprise-transformation-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static-generated AGI enterprise transformation control tower derived from the process registry workbook.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build:data": "node -e \"const path=require('path'); const fs=require('fs'); const { buildDashboardData }=require('./src/excel-parser'); const data=buildDashboardData(path.join(__dirname,'AGI Enterprise Process Registry v1.xlsx')); fs.mkdirSync(path.join(__dirname,'public'),{recursive:true}); fs.writeFileSync(path.join(__dirname,'public','dashboard-data.json'), JSON.stringify(data,null,2)); fs.writeFileSync(path.join(__dirname,'public','dashboard-data.js'), 'window.AGI_DASHBOARD_DATA='+JSON.stringify(data)+';'); console.log('Generated public/dashboard-data.json and public/dashboard-data.js');\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "xlsx": "^0.18.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
